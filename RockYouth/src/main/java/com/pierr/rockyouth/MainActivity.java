@@ -88,64 +88,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
         return true;
     }
 
-    /**
-     * A dummy fragment representing a section of the app, but that simply
-     * displays dummy text.
-     */
-    public static  class AlbumListFragment extends ListFragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        public static final String ARG_SECTION_NUMBER = "section_number";
-
-        public AlbumListFragment() {
-        }
-
-
-        ListAdapter getAlbumsAdapter(int sortType){
-
-            // TODO:get the really data from Model
-
-            ArrayList<String> l = new ArrayList<String>();
-            l.add("rocks1");
-            l.add("rocks3");
-            l.add("rocks3");
-
-            ArrayAdapter<String> ad = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,l);
-
-
-            
-
-            return ad;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_album_list, container, false);
-
-            int sortType = getArguments().getInt(ARG_SECTION_NUMBER);
-            setListAdapter(getAlbumsAdapter(sortType));
-
-            return rootView;
-        }
-
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-
-
-        }
-
-        @Override
-        public void onSaveInstanceState(Bundle outState) {
-            //super.onSaveInstanceState(outState);
-        }
-    }
-
-
-
 
 
 }
