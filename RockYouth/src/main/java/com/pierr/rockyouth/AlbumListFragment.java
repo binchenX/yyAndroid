@@ -34,33 +34,15 @@ public  class AlbumListFragment extends ListFragment {
    //private int sortType = SORT_BY_TIME;
 
 
-    private static final int SORT_BY_TIME = 1;
-    private static final int SORT_BY_RATING = 2;
+
 
     public AlbumListFragment() {
     }
 
 
     BaseAdapter getAlbumsAdapter(int sortType) {
-
-        // TODO:get the really data from Model
-
-        ArrayList<String> l = new ArrayList<String>();
-
-        if (sortType == SORT_BY_TIME) {
-            l.add("rocks1");
-            l.add("rocks3");
-            l.add("rocks3");
-        } else {
-            l.add("rocks12");
-            l.add("rocks22");
-            l.add("rocks32");
-        }
-
-        //ArrayAdapter<String> ad = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, l);
-
-        // TODO:should ask Model for data
-        return new AlbumAdapter(getActivity(),null);
+        List<Album> albumData = AlbumDataBase.queryAlbum(sortType);
+        return new AlbumAdapter(getActivity(),albumData);
     }
 
     @Override
@@ -95,14 +77,16 @@ public  class AlbumListFragment extends ListFragment {
 
 
         private Context context;
+        private List<Album> albums;
 
-        public AlbumAdapter(Context context, List<Map<String,String>> items) {
+        public AlbumAdapter(Context context, List<Album> albums) {
             this.context = context;
+            this.albums = albums;
         }
 
         @Override
         public int getCount() {
-            return 3;
+            return albums.size();
         }
 
         @Override
@@ -117,17 +101,44 @@ public  class AlbumListFragment extends ListFragment {
         }
 
         @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
+        public View getView(int position, View view, ViewGroup viewGroup) {
 
-            // trick: should the last parameters to inflate MUST be false
-            View v = LayoutInflater.from(context).inflate(R.layout.album_item,viewGroup,false);
-            ImageView albumImage = (ImageView)v.findViewById(R.id.album_image);
-            TextView albumTitle = (TextView)v.findViewById(R.id.album_title);
-            albumTitle.setText("text1");
-            TextView albumAuthor = (TextView)v.findViewById(R.id.album_author);
-            albumAuthor.setText("Who");
-            return v;
+            Album album = albums.get(position);
+            View row = view;
+
+            ViewHolder viewHolder = null;
+            if (row == null) {
+                // trick: should the last parameters to inflate MUST be false
+                 row = LayoutInflater.from(context).inflate(R.layout.album_item, viewGroup, false);
+
+                viewHolder = new ViewHolder();
+
+                viewHolder.albumImage = (ImageView) row.findViewById(R.id.album_image);
+                viewHolder.albumTitle = (TextView) row.findViewById(R.id.album_title);
+                viewHolder.albumAuthor = (TextView) row.findViewById(R.id.album_author);
+
+                row.setTag(viewHolder);
+
+            } else {
+
+                viewHolder = (ViewHolder)row.getTag();
+            }
+
+            viewHolder.albumAuthor.setText(album.author);
+            viewHolder.albumTitle.setText(album.title);
+
+            return row;
+
         }
+    }
+
+
+    static class ViewHolder {
+
+        ImageView albumImage;
+        TextView albumTitle;
+        TextView albumAuthor;
+        TextView albumRating;
     }
 }
 
