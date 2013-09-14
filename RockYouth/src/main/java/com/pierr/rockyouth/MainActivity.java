@@ -45,7 +45,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
                         new String[] {
                                 getString(R.string.title_section1),
                                 getString(R.string.title_section2),
-                                getString(R.string.title_section3),
                         }),
                 this);
     }
