@@ -4,15 +4,21 @@ package com.pierr.rockyouth;
  * Created by Pierr on 13-9-14.
  */
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
+import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A dummy fragment representing a section of the app, but that simply
@@ -35,7 +41,7 @@ public  class AlbumListFragment extends ListFragment {
     }
 
 
-    ListAdapter getAlbumsAdapter(int sortType) {
+    BaseAdapter getAlbumsAdapter(int sortType) {
 
         // TODO:get the really data from Model
 
@@ -51,10 +57,10 @@ public  class AlbumListFragment extends ListFragment {
             l.add("rocks32");
         }
 
-        ArrayAdapter<String> ad = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, l);
+        //ArrayAdapter<String> ad = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, l);
 
-
-        return ad;
+        // TODO:should ask Model for data
+        return new AlbumAdapter(getActivity(),null);
     }
 
     @Override
@@ -81,6 +87,47 @@ public  class AlbumListFragment extends ListFragment {
         //http://stackoverflow.com/questions/7469082/getting-exception-illegalstateexception-can-not-perform-this-action-after-onsa/10261438#10261438
 
         //super.onSaveInstanceState(outState);
+    }
+
+
+
+    static class AlbumAdapter extends BaseAdapter{
+
+
+        private Context context;
+
+        public AlbumAdapter(Context context, List<Map<String,String>> items) {
+            this.context = context;
+        }
+
+        @Override
+        public int getCount() {
+            return 3;
+        }
+
+        @Override
+        public Object getItem(int i) {
+
+            return i;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return i;
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+
+            // trick: should the last parameters to inflate MUST be false
+            View v = LayoutInflater.from(context).inflate(R.layout.album_item,viewGroup,false);
+            ImageView albumImage = (ImageView)v.findViewById(R.id.album_image);
+            TextView albumTitle = (TextView)v.findViewById(R.id.album_title);
+            albumTitle.setText("text1");
+            TextView albumAuthor = (TextView)v.findViewById(R.id.album_author);
+            albumAuthor.setText("Who");
+            return v;
+        }
     }
 }
 
