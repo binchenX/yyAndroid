@@ -42,8 +42,12 @@ public  class AlbumListFragment extends ListFragment {
 
     BaseAdapter getAlbumsAdapter(int sortType) {
         List<Album> albumData = AlbumDataBase.queryAlbum(sortType);
+
+
         return new AlbumAdapter(getActivity(),albumData);
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,9 +55,32 @@ public  class AlbumListFragment extends ListFragment {
         View rootView = inflater.inflate(R.layout.fragment_album_list, container, false);
 
         int sortType = getArguments().getInt(ARG_SECTION_NUMBER);
-        setListAdapter(getAlbumsAdapter(sortType));
+
+
+        //setListAdapter(getAlbumsAdapter(sortType));
+        //
+        AlbumDataBase.queryDataAsync(new AlbumDataBase.DataAvailableListener() {
+            @Override
+            public void onDataAvailable(List<Album> data) {
+                //we got the data, set the list adapter
+                onQueryDataAvailable(data);
+            }
+        });
 
         return rootView;
+    }
+
+    /**
+     * our query returned with data!
+     *
+     * @param albums
+     */
+
+    private void onQueryDataAvailable(List<Album> albums){
+
+        AlbumAdapter adapter = new AlbumAdapter(getActivity(),albums);
+        setListAdapter(adapter);
+
     }
 
     @Override
@@ -77,7 +104,7 @@ public  class AlbumListFragment extends ListFragment {
 
 
         private Context context;
-        private List<Album> albums;
+        private List<Album> albums = null;
 
         public AlbumAdapter(Context context, List<Album> albums) {
             this.context = context;
@@ -86,6 +113,7 @@ public  class AlbumListFragment extends ListFragment {
 
         @Override
         public int getCount() {
+            if (albums == null) return 0;
             return albums.size();
         }
 

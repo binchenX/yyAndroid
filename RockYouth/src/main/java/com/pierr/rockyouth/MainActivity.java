@@ -24,6 +24,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
      * current dropdown position.
      */
     private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
+    public static final String TAG = "RockYouth";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
