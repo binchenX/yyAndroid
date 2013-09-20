@@ -72,6 +72,7 @@ public class AlbumDetailActivity extends FragmentActivity implements ActionBar.T
         // Set up the action bar.
         final ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        actionBar.setHomeButtonEnabled(true);
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the app.
@@ -112,7 +113,27 @@ public class AlbumDetailActivity extends FragmentActivity implements ActionBar.T
         getMenuInflater().inflate(R.menu.album_detail, menu);
         return true;
     }
-    
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+
+        switch (item.getItemId()) {
+
+            case android.R.id.home:
+                back();
+                break;
+            default:
+                break;
+        }
+        return true;
+
+    }
+
+    private void back() {
+        finish();
+    }
+
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
         // When the given tab is selected, switch to the corresponding page in

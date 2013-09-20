@@ -94,23 +94,22 @@ public  class AlbumListFragment extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-       
         //get  the album from the adapter
         Album album = (Album)mCurrentAlbumAdapter.getItem(position);
-
         if (album == null) {
             Toast.makeText(getActivity(),"Can't find the album",Toast.LENGTH_LONG).show();
+            Log.e(MainActivity.TAG,"can't find the album detail");
             return;
         }
+        showDetail(album);
 
+    }
+
+    private void showDetail(Album album) {
         Intent intent = new Intent(getActivity(),AlbumDetailActivity.class);
-
         intent.putExtra("albumDetail",album);
-
-        Toast.makeText(getActivity(),"show " + album.title , Toast.LENGTH_LONG).show();
-
+        Toast.makeText(getActivity(), "show " + album.title, Toast.LENGTH_LONG).show();
         startActivity(intent);
-
     }
 
     class AlbumAdapter extends BaseAdapter{

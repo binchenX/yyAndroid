@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">RockYouth</string>
-    <string name="action_settings">Settings</string>
+    <string name="app_name">摇滚青年</string>
+    <string name="action_settings">设置</string>
     <string name="title_section1">时间</string>
     <string name="title_section2">打分</string>
-    <string name="title_activity_album_detail">AlbumDetailActivity</string>
+    <string name="title_activity_album_detail">专辑详情</string>
     <string name="title_section3">Section 3</string>
     <string name="detail_tab1">详细</string>
     <string name="detail_tab2">评论</string>
