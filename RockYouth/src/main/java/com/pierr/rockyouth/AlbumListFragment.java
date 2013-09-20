@@ -18,9 +18,6 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,13 +33,6 @@ public  class AlbumListFragment extends ListFragment {
      * fragment.
      */
     public static final String ARG_SECTION_NUMBER = "section_number";
-    private DisplayImageOptions options;
-
-    //private int sortType = SORT_BY_TIME;
-
-
-
-
     public AlbumListFragment() {
     }
 
@@ -76,11 +66,7 @@ public  class AlbumListFragment extends ListFragment {
 
 
 
-        options = new DisplayImageOptions.Builder()
-                .cacheInMemory(true)
-                .cacheOnDisc(true)
-                .displayer(new RoundedBitmapDisplayer(20))
-                .build();
+
 
 
         return rootView;
@@ -170,12 +156,8 @@ public  class AlbumListFragment extends ListFragment {
 
             viewHolder.albumAuthor.setText(album.author);
             viewHolder.albumTitle.setText(album.title);
-            //Log.d(MainActivity.TAG,"set ImageView uri " + album.uri);
-            //String uri = "http://img1.douban.com/spic/s3383651.jpg";
-            // TODO:use image download handling all the cache and decode stuff
-            //viewHolder.albumImage.setImageURI(Uri.parse(uri));
 
-            ImageLoader.getInstance().displayImage(album.uri, viewHolder.albumImage, options, null);
+            ImageLoader.getInstance().displayImage(album.uri, viewHolder.albumImage);
 
             return row;
 
