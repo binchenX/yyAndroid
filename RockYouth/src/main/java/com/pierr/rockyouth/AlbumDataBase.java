@@ -2,6 +2,7 @@ package com.pierr.rockyouth;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.ListAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,6 +25,8 @@ public class AlbumDataBase {
     //http://www.rock-n-folk.com/api?tag=album&since=2012
     //https://raw.github.com/pierrchen/datahouse/master/albums.json
     private static  String dataQueryQui = "https://raw.github.com/pierrchen/datahouse/master/albums.json";
+
+    private static List<Album> albumsData = new ArrayList<Album>();
 
     public static List<Album> queryAlbum(int condition)
     {
@@ -119,6 +122,14 @@ public class AlbumDataBase {
         @Override
         protected void onPostExecute(Void aVoid) {
             //super.onPostExecute(aVoid);
+
+            // TODO: fix me. Need more design for data fetch
+            // cache it
+            for (int i = 0; i < result.size();i++) {
+                albumsData.add(result.get(i));
+            }
+
+            // notify listener
             if (listener != null ) {
                 Log.d(MainActivity.TAG,"data is available, " + result.size() + " albums");
                 listener.onDataAvailable(result);

@@ -5,6 +5,7 @@ package com.pierr.rockyouth;
  */
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -16,7 +17,9 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import java.util.ArrayList;
@@ -33,17 +36,10 @@ public  class AlbumListFragment extends ListFragment {
      * fragment.
      */
     public static final String ARG_SECTION_NUMBER = "section_number";
+
+    private AlbumAdapter mCurrentAlbumAdapter = null;
     public AlbumListFragment() {
     }
-
-
-    BaseAdapter getAlbumsAdapter(int sortType) {
-        List<Album> albumData = AlbumDataBase.queryAlbum(sortType);
-
-
-        return new AlbumAdapter(getActivity(),albumData);
-    }
-
 
 
     @Override
@@ -53,9 +49,7 @@ public  class AlbumListFragment extends ListFragment {
 
         int sortType = getArguments().getInt(ARG_SECTION_NUMBER);
 
-
-        //setListAdapter(getAlbumsAdapter(sortType));
-        //
+        //start loading the data and setup the adapter
         AlbumDataBase.queryDataAsync(new AlbumDataBase.DataAvailableListener() {
             @Override
             public void onDataAvailable(List<Album> data) {
@@ -64,16 +58,11 @@ public  class AlbumListFragment extends ListFragment {
             }
         });
 
-
-
-
-
-
         return rootView;
     }
 
     /**
-     * our query returned with data!
+     * our query returned with data! put the data in the adapter and set it to the ListFragment.
      *
      * @param albums
      */
@@ -81,7 +70,8 @@ public  class AlbumListFragment extends ListFragment {
     private void onQueryDataAvailable(List<Album> albums){
 
         AlbumAdapter adapter = new AlbumAdapter(getActivity(),albums);
-        setListAdapter(adapter);
+        mCurrentAlbumAdapter = adapter;
+        setListAdapter(mCurrentAlbumAdapter);
 
     }
 
@@ -94,17 +84,36 @@ public  class AlbumListFragment extends ListFragment {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        //this is a hack for
+        // Don't delete! This is a hack!
         //http://stackoverflow.com/questions/7469082/getting-exception-illegalstateexception-can-not-perform-this-action-after-onsa/10261438#10261438
 
         //super.onSaveInstanceState(outState);
     }
 
 
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+       
+        //get  the album from the adapter
+        Album album = (Album)mCurrentAlbumAdapter.getItem(position);
 
-     class AlbumAdapter extends BaseAdapter{
+        if (album == null) {
+            Toast.makeText(getActivity(),"Can't find the album",Toast.LENGTH_LONG).show();
+            return;
+        }
 
+        Intent intent = new Intent(getActivity(),AlbumDetailActivity.class);
 
+        intent.putExtra("albumDetail",album);
+
+        Toast.makeText(getActivity(),"show " + album.title , Toast.LENGTH_LONG).show();
+
+        startActivity(intent);
+
+    }
+
+    class AlbumAdapter extends BaseAdapter{
         private Context context;
         private List<Album> albums = null;
 
@@ -122,7 +131,11 @@ public  class AlbumListFragment extends ListFragment {
         @Override
         public Object getItem(int i) {
 
-            return i;
+            if (i < albums.size()) {
+                return albums.get(i);
+            }
+
+            return null;
         }
 
         @Override

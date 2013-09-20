@@ -1,5 +1,7 @@
 package com.pierr.rockyouth;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
 import org.json.JSONException;
@@ -10,17 +12,19 @@ import org.json.JSONObject;
  *
  * POD data for Album
  */
-public class Album {
+public class Album implements Parcelable {
 
-    public String author;
+
     public String title;
+    public String author;
     public String uri;
     public int rating;
 
     public Album(String author, String title, String uri, int rating) {
 
-        this.author = author;
+
         this.title = title;
+        this.author = author;
         this.uri = uri;
         this.rating = rating;
 
@@ -74,10 +78,39 @@ public class Album {
 
         return album;
 
+    }
 
+    // implement parcelable
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
 
+    @Override
+    public void writeToParcel(Parcel out, int flag) {
+        out.writeString(title);
+        out.writeString(author);
+        out.writeString(uri);
+        out.writeInt(rating);
 
+    }
 
+    public static final Parcelable.Creator<Album> CREATOR
+            = new Parcelable.Creator<Album>() {
+        public Album createFromParcel(Parcel in) {
+            return new Album(in);
+        }
+
+        public Album[] newArray(int size) {
+            return new Album[size];
+        }
+    };
+
+    private Album(Parcel in) {
+        title = in.readString();
+        author = in.readString();
+        uri = in.readString();
+        rating = in.readInt();
     }
 }
