@@ -16,21 +16,19 @@
         />
 
     <TextView
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:text="New Text"
+        style="@style/album_summary_title"
+        android:text=""
         android:id="@+id/album_title"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@id/album_image"
-        android:background="#6aff2c" />
+        />
 
     <TextView
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:text="New Text"
+        style="@style/album_summary_author"
+        android:text=""
         android:id="@+id/album_author"
-        android:background="#ff96a2"
         android:layout_toRightOf="@+id/album_image"
         android:layout_below="@id/album_title"
+
         />
 </RelativeLayout>
