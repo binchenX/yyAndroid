@@ -161,12 +161,23 @@ public class AlbumDetailActivity extends FragmentActivity implements ActionBar.T
 
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a DummySectionFragment (defined as a static inner class
-            // below) with the page number as its lone argument.
-            Fragment fragment = new DummySectionFragment();
+
+            Fragment fragment = null;
+
+            switch (position) {
+                case 0:
+                    fragment = new DummySectionFragment();
+                    break;
+                case 1:
+                    fragment = new DummySectionFragment();
+                    break;
+                case 2:
+                    fragment = new DummySectionFragment();
+                    break;
+            }
+            // pass currentAlbum data to fragment
             Bundle args = new Bundle();
-            args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, position + 1);
+            args.putParcelable("album",mCurrentAlbum);
             fragment.setArguments(args);
             return fragment;
         }
@@ -198,7 +209,7 @@ public class AlbumDetailActivity extends FragmentActivity implements ActionBar.T
      *
      * TODO: keep it as static! create more fragment after fix the detail page layout
      */
-    public  class DummySectionFragment extends Fragment {
+    public  static class DummySectionFragment extends Fragment {
         /**
          * The fragment argument representing the section number for this
          * fragment.
@@ -213,16 +224,9 @@ public class AlbumDetailActivity extends FragmentActivity implements ActionBar.T
                 Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_album_detail_dummy, container, false);
             TextView dummyTextView = (TextView) rootView.findViewById(R.id.section_label);
-            int section = getArguments().getInt(ARG_SECTION_NUMBER);
+            Album album = getArguments().getParcelable("album");
 
-            String text = "EM";
-            if (section == 1) {
-                text = mCurrentAlbum.title;
-            } else if (section == 2) {
-                text = mCurrentAlbum.author;
-            }
-
-            dummyTextView.setText(text);
+            dummyTextView.setText(album.title);
             return rootView;
         }
     }

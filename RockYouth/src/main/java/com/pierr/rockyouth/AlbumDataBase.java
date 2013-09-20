@@ -28,37 +28,6 @@ public class AlbumDataBase {
 
     private static List<Album> albumsData = new ArrayList<Album>();
 
-    public static List<Album> queryAlbum(int condition)
-    {
-        ArrayList<Album> albums = new ArrayList<Album>();
-
-        if (condition == SORT_BY_TIME) {
-            albums.add(new Album("douwei", "title", "imageUrl", 5));
-            albums.add(new Album("douwei", "title", "imageUrl", 5));
-            albums.add(new Album("douwei", "title", "imageUrl", 5));
-            albums.add(new Album("douwei", "title", "imageUrl", 5));
-            albums.add(new Album("douwei", "title", "imageUrl", 5));
-            albums.add(new Album("douwei", "title", "imageUrl", 5));
-            albums.add(new Album("douwei", "title", "imageUrl", 5));
-            albums.add(new Album("douwei", "title", "imageUrl", 5));
-            albums.add(new Album("douwei", "title", "imageUrl", 5));
-        } else if (condition == SORT_BY_RATING){
-            albums.add(new Album("zhangchu", "title2", "imageUrl", 5));
-            albums.add(new Album("zhangchu", "title2", "imageUrl", 5));
-            albums.add(new Album("zhangchu", "title2", "imageUrl", 5));
-            albums.add(new Album("zhangchu", "title2", "imageUrl", 5));
-            albums.add(new Album("zhangchu", "title2", "imageUrl", 5));
-            albums.add(new Album("zhangchu", "title2", "imageUrl", 5));
-            albums.add(new Album("zhangchu", "title2", "imageUrl", 5));
-            albums.add(new Album("zhangchu", "title2", "imageUrl", 5));
-            albums.add(new Album("zhangchu", "title2", "imageUrl", 5));
-
-        }
-
-        return albums;
-
-    }
-
     /**
      * called on the UI thread , the listener should be running on UI thread as well.
      * This could be garentteed by AsyncTask Implementation
@@ -105,8 +74,11 @@ public class AlbumDataBase {
                     JSONObject post = jo.getJSONObject("post");
                     if (post != null) {
                         Album album = Album.createFromJson(post);
-                        if (album != null)
-                        result.add(album);
+                        if (album != null) {
+                            // TODO:fix me; song should come from Json as well
+                            addSongs(album);
+                            result.add(album);
+                        }
                     }
                 }
             } catch (JSONException e) {
@@ -117,6 +89,19 @@ public class AlbumDataBase {
             return null;
         }
 
+        // FIXME: need real song data
+        private void addSongs(Album album) {
+            Album.Song song = new Album.Song("孤独的人是可耻的", "dddd" ,"lyrcis");
+            Album.Song song2 = new Album.Song("蚂蚁", "dddd" ,"lyrcis");
+            Album.Song song3 = new Album.Song("光明大道", "dddd" ,"lyrcis");
+            Album.Song song4 = new Album.Song("赵小姐", "dddd" ,"lyrcis");
+            List<Album.Song> songs = new ArrayList<Album.Song>();
+            songs.add(song);
+            songs.add(song2);
+            songs.add(song3);
+            songs.add(song4);
+            album.setSongs(songs);
+        }
 
 
         @Override
