@@ -13,6 +13,7 @@
         android:baselineAlignBottom="true"
         android:layout_alignTop="@id/album_image"
         android:layout_alignParentLeft="true"
+        android:scaleType="centerCrop"
         />
 
     <TextView
