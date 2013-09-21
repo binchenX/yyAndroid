@@ -9,10 +9,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,8 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.pierr.rockyouth.R;
 
 
 /**
@@ -166,13 +162,13 @@ public class AlbumDetailActivity extends FragmentActivity implements ActionBar.T
 
             switch (position) {
                 case 0:
-                    fragment = new DummySectionFragment();
+                    fragment = new ReadItFragment();
                     break;
                 case 1:
-                    fragment = new DummySectionFragment();
+                    fragment = new ListenItFragment();
                     break;
                 case 2:
-                    fragment = new DummySectionFragment();
+                    fragment = new DiscussItFragment();
                     break;
             }
             // pass currentAlbum data to fragment
@@ -203,32 +199,5 @@ public class AlbumDetailActivity extends FragmentActivity implements ActionBar.T
         }
     }
 
-    /**
-     * A dummy fragment representing a section of the app, but that simply
-     * displays dummy text.
-     *
-     * TODO: keep it as static! create more fragment after fix the detail page layout
-     */
-    public  static class DummySectionFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        public static final String ARG_SECTION_NUMBER = "section_number";
-
-        public DummySectionFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_album_detail_dummy, container, false);
-            TextView dummyTextView = (TextView) rootView.findViewById(R.id.section_label);
-            Album album = getArguments().getParcelable("album");
-
-            dummyTextView.setText(album.title);
-            return rootView;
-        }
-    }
 
 }
