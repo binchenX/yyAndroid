@@ -38,7 +38,8 @@
         android:layout_height="fill_parent"
         android:layout_below="@+id/album_cover_big"
         android:layout_marginTop="30dp"
-        android:gravity="bottom|center">
+        android:gravity="bottom|center"
+        >
 
         <TextView
             android:layout_width="wrap_content"
@@ -51,7 +52,7 @@
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_below="@id/frag_listen_current_song"
             android:id="@+id/play_controller"
@@ -62,22 +63,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/previous"
-                android:src="@drawable/ic_previous" />
+                android:src="@drawable/ic_previous"
+                android:layout_marginRight="@dimen/play_control_button_padding"
+                />
 
 
              <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/play"
+                android:src="@drawable/ic_play"
                 android:layout_toRightOf="@id/previous"
-                 android:src="@drawable/ic_play" />
+                android:layout_marginRight="@dimen/play_control_button_padding"
+                 />
 
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/next"
+                android:src="@drawable/ic_next"
                 android:layout_toRightOf="@id/play"
-                android:src="@drawable/ic_next" />
+                android:layout_marginRight="@dimen/play_control_button_padding"
+                />
         </RelativeLayout>
     </RelativeLayout>
 
