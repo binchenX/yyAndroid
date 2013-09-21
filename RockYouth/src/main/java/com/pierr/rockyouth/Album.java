@@ -22,22 +22,25 @@ public class Album implements Parcelable {
     public String author;
     public String uri;
     public int rating;
+    public String bigCoverUri;
     public List<Song> songs = new ArrayList<Song>();
 
-    private Album(String author, String title, String uri, int rating, List<Song>songs) {
+
+    private void init(String author, String title, String uri,String bigCoverUri,
+                      int rating,
+                      List<Song> songs) {
         this.title = title;
         this.author = author;
         this.uri = uri;
+        this.bigCoverUri = bigCoverUri;
         this.rating = rating;
-        this.songs = new ArrayList<Song>(songs);
+        if (songs != null) {
+            this.songs = new ArrayList<Song>(songs);
+        }
     }
 
-    private Album(String author, String title, String uri, int rating) {
-        this.title = title;
-        this.author = author;
-        this.uri = uri;
-        this.rating = rating;
-        //this.songs = new ArrayList<Song>(songs);
+    private Album(String author, String title, String uri, String imageBig,int rating) {
+       init(author,title,uri, imageBig,rating, null);
     }
 
 
@@ -80,13 +83,14 @@ public class Album implements Parcelable {
 
         try {
             String imageUri = jo.getString("image_small");
+            String imageBig = jo.getString("image_big");
             String title = jo.getString("title");
             String author = jo.getString("singer");
             int rating = jo.getInt("vote_points");
 
             // TODO:fixme
 
-            album =  new Album(author,title,imageUri,rating);
+            album =  new Album(author,title,imageUri,imageBig,rating);
 
         } catch (JSONException ex) {
             Log.w(MainActivity.TAG, "malformed JSON album object");
@@ -109,6 +113,7 @@ public class Album implements Parcelable {
         out.writeString(title);
         out.writeString(author);
         out.writeString(uri);
+        out.writeString(bigCoverUri);
         out.writeInt(rating);
         out.writeTypedList(songs);
 
@@ -129,6 +134,7 @@ public class Album implements Parcelable {
         title = in.readString();
         author = in.readString();
         uri = in.readString();
+        bigCoverUri = in.readString();
         rating = in.readInt();
         in.readTypedList(songs, Song.CREATOR);
     }
