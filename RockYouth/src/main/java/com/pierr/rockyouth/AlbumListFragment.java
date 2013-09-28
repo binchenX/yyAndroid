@@ -101,16 +101,30 @@ public  class AlbumListFragment extends ListFragment {
             Log.e(MainActivity.TAG,"can't find the album detail");
             return;
         }
-        showDetail(album);
+        showDetail(v, album);
 
     }
 
-    private void showDetail(Album album) {
+    private void showDetail(View clickedItem, Album album) {
         //Intent intent = new Intent(getActivity(),AlbumDetailActivity.class);
-        Intent intent = new Intent(getActivity(),SimpleAlbumDetailActivity.class);
-        intent.putExtra("albumDetail",album);
+        Intent detailActivity = new Intent(getActivity(),SimpleAlbumDetailActivity.class);
+        detailActivity.putExtra("albumDetail", album);
         Toast.makeText(getActivity(), "show " + album.title, Toast.LENGTH_LONG).show();
-        startActivity(intent);
+
+        //data needed for animation
+        int[] screenLocation = new int[2];
+        clickedItem.getLocationOnScreen(screenLocation);
+        detailActivity.putExtra(".left", screenLocation[0]).
+                putExtra( ".top", screenLocation[1]).
+                putExtra( ".width", clickedItem.getWidth()).
+                putExtra( ".height", clickedItem.getHeight());
+
+
+        startActivity(detailActivity);
+
+        // Override transitions: we don't want the normal window animation in addition
+        // to our custom one
+        getActivity().overridePendingTransition(0, 0);
     }
 
     class AlbumAdapter extends BaseAdapter{
