@@ -18,7 +18,9 @@
     </style>
 
     <style name="album_item">
-        <item name="android:background">@color/White</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">100dp</item>
+        <item name="android:background">@drawable/dr_album_row_bg</item>
     </style>
 
     <style name="album_summary_title">

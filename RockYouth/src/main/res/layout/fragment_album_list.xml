@@ -14,5 +14,8 @@
         android:layout_height="match_parent"
         android:id="@android:id/list"
         android:layout_centerVertical="true"
-        android:layout_alignParentRight="true" />
+        android:layout_alignParentRight="true"
+        android:scrollbars="none"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="@dimen/album_list_divider_height"/>
 </RelativeLayout>

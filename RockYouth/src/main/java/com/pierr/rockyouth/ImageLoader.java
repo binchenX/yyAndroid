@@ -42,16 +42,18 @@ public class ImageLoader {
                 .denyCacheImageMultipleSizesInMemory()
                 .discCacheFileNameGenerator(new Md5FileNameGenerator())
                 .tasksProcessingOrder(QueueProcessingType.LIFO)
-                .writeDebugLogs() // Remove for release app
+                //.writeDebugLogs() // Remove for release app
                 .build();
         // Initialize ImageLoader with configuration.
         com.nostra13.universalimageloader.core.ImageLoader.getInstance().init(config);
 
 
+        //int radius = (int) context.getResources().getDimension(R.dimen.album_row_radius) - 2;
+        int radius = 2;
         options = new DisplayImageOptions.Builder()
                 .cacheInMemory(true)
                 .cacheOnDisc(true)
-                //.displayer(new RoundedBitmapDisplayer(20))
+                .displayer(new RoundedBitmapDisplayer(radius))
                 .build();
 
     }
