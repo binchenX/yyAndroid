@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_below="@id/frag_listen_current_song"
+    android:id="@+id/play_controller"
+    android:layout_marginBottom="20dp">
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/previous"
+        android:src="@drawable/ic_previous"
+        android:layout_marginRight="@dimen/play_control_button_padding" />
+
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/play"
+        android:src="@drawable/ic_play"
+        android:layout_toRightOf="@id/previous"
+        android:layout_marginRight="@dimen/play_control_button_padding" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/next"
+        android:src="@drawable/ic_next"
+        android:layout_toRightOf="@id/play"
+        android:layout_marginRight="@dimen/play_control_button_padding" />
+</RelativeLayout>
+    
