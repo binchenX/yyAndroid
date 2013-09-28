@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.List;
+
 /**
  * Created by Pierr on 13-9-21.
  */
@@ -17,10 +19,19 @@ public class ReadItFragment extends Fragment {
         //return super.onCreateView(inflater, container, savedInstanceState);
 
         View rootView = inflater.inflate(R.layout.fragment_album_detail_read, container, false);
-        TextView dummyTextView = (TextView) rootView.findViewById(R.id.section_label);
+        TextView songListView = (TextView) rootView.findViewById(R.id.song_list);
         Album album = getArguments().getParcelable("album");
 
-        dummyTextView.setText(album.title);
+        StringBuilder sb = new StringBuilder();
+        List<Album.Song> songs = album.songs;
+
+
+        for(Album.Song s : songs){
+            sb.append(s.title).append("\n");
+        }
+
+        songListView.setText(sb.toString());
+
         return rootView;
     }
 }

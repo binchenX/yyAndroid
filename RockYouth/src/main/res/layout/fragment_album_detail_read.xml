@@ -9,8 +9,7 @@
     tools:context=".AlbumDetailActivity$DummySectionFragment">
 
     <TextView
-        android:id="@+id/section_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:id="@+id/song_list"
+        style="@style/album_song_list"/>
 
 </RelativeLayout>
