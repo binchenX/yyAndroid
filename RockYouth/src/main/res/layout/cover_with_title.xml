@@ -6,14 +6,16 @@
     android:layout_height="300dp"
     android:layout_alignParentTop="true"
     android:layout_alignParentStart="true"
-    android:id="@+id/album_cover_big">
+    android:id="@+id/album_cover_big"
+    android:background="@drawable/album_big_cover_bg">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:id="@+id/frag_listen_album_cover_big"
         android:adjustViewBounds="true"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"
+        />
 
     <TextView
         android:text="专辑名称"

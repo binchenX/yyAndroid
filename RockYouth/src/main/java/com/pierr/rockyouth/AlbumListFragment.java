@@ -106,7 +106,8 @@ public  class AlbumListFragment extends ListFragment {
     }
 
     private void showDetail(Album album) {
-        Intent intent = new Intent(getActivity(),AlbumDetailActivity.class);
+        //Intent intent = new Intent(getActivity(),AlbumDetailActivity.class);
+        Intent intent = new Intent(getActivity(),SimpleAlbumDetailActivity.class);
         intent.putExtra("albumDetail",album);
         Toast.makeText(getActivity(), "show " + album.title, Toast.LENGTH_LONG).show();
         startActivity(intent);

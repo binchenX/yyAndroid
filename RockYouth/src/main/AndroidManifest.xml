@@ -29,7 +29,11 @@
         <activity
             android:name="com.pierr.rockyouth.AlbumDetailActivity"
             android:label="@string/title_activity_album_detail"
-            android:logo="@drawable/ic_navigation_back">
+            android:logo="@drawable/ic_navigation_back" >
+        </activity>
+        <activity
+            android:name="com.pierr.rockyouth.SimpleAlbumDetailActivity"
+            android:label="@string/title_activity_simple_album_detail" >
         </activity>
     </application>
 

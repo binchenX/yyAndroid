@@ -10,5 +10,7 @@
     <string name="detail_tab1">曲目</string>
     <string name="detail_tab2">听歌</string>
     <string name="detail_tab3">评论</string>
+    <string name="title_activity_simple_album_detail">AlbumDetail</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>
