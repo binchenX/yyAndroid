@@ -35,6 +35,8 @@
             android:name="com.pierr.rockyouth.SimpleAlbumDetailActivity"
             android:label="@string/title_activity_simple_album_detail" >
         </activity>
+
+        <service android:name=".MusicPlayService" />
     </application>
 
 </manifest>

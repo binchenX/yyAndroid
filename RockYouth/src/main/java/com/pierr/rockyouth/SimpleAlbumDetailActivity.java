@@ -1,8 +1,12 @@
 package com.pierr.rockyouth;
 
 import android.animation.TimeInterpolator;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.app.Activity;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -28,6 +32,25 @@ public class SimpleAlbumDetailActivity extends Activity {
 
     private static final TimeInterpolator sDecelerator = new DecelerateInterpolator();
     private static final TimeInterpolator sAccelerator = new AccelerateInterpolator();
+
+    private MusicPlayService mPlayerService;
+    ServiceConnection mCon = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+
+            mPlayerService = ((MusicPlayService.LocalBinder)iBinder).getService();
+
+            // FIXME
+            //start play the music
+            mPlayerService.playNext();
+
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+
+        }
+    };
 
 
     @Override
@@ -92,6 +115,19 @@ public class SimpleAlbumDetailActivity extends Activity {
                 }
             });
         }
+
+
+        // FIXME:
+
+
+        //init the playList
+        PlayList.getInstance().addSongs(mAlbum.songs);
+
+        //let's bind the service
+        Intent playerService = new Intent(this, MusicPlayService.class);
+        bindService(playerService,mCon,BIND_AUTO_CREATE);
+
+
 
     }
 
@@ -161,6 +197,14 @@ public class SimpleAlbumDetailActivity extends Activity {
 
         super.onResume();
 
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        unbindService(mCon);
     }
 
     @Override

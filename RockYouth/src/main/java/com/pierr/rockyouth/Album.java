@@ -7,6 +7,8 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -147,7 +149,13 @@ public class Album implements Parcelable {
 
         public Song(String title, String uri, String lyrics){
             this.title = title;
-            this.uri = uri;
+            // FIXME:
+            String fixUri = "https://s3-us-west-2.amazonaws.com/pierrchen/music/lizhi/卡夫卡.mp3";
+            try {
+                this.uri = URLEncoder.encode(fixUri,"UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
             this.lyrics = lyrics;
 
         }
