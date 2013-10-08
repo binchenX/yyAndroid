@@ -20,7 +20,7 @@
         android:layout_marginTop="@dimen/card_vertical_padding">
     </include>
 
-   <fragment android:name="com.pierr.rockyouth.PlayerController"
+   <fragment android:name="com.pierr.rockyouth.fragment.PlayerController"
        android:id="@+id/play_contoller"
        android:layout_width="wrap_content"
        android:layout_height="30dp"

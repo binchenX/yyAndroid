@@ -13,6 +13,9 @@ import android.os.Looper;
 import android.os.Message;
 import android.widget.Toast;
 
+import com.pierr.rockyouth.model.Album;
+import com.pierr.rockyouth.model.PlayList;
+
 import java.io.IOException;
 
 
@@ -97,7 +100,7 @@ public class MusicPlayService extends Service {
 
 
     public class LocalBinder extends Binder {
-        MusicPlayService getService() {
+        public MusicPlayService getService() {
             return MusicPlayService.this;
         }
     }

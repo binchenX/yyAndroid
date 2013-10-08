@@ -1,8 +1,10 @@
-package com.pierr.rockyouth;
+package com.pierr.rockyouth.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
+
+import com.pierr.rockyouth.activity.MainActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;

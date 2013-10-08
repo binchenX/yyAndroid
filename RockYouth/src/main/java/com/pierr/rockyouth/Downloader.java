@@ -1,9 +1,9 @@
 package com.pierr.rockyouth;
 
-import android.net.Uri;
 import android.util.Log;
 
-import java.io.BufferedInputStream;
+import com.pierr.rockyouth.activity.MainActivity;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

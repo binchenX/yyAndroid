@@ -1,8 +1,10 @@
-package com.pierr.rockyouth;
+package com.pierr.rockyouth.model;
 
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.ListAdapter;
+
+import com.pierr.rockyouth.Downloader;
+import com.pierr.rockyouth.activity.MainActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;

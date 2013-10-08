@@ -1,4 +1,4 @@
-package com.pierr.rockyouth;
+package com.pierr.rockyouth.fragment;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -14,6 +14,9 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.pierr.rockyouth.MusicPlayService;
+import com.pierr.rockyouth.R;
 
 /**
  * Created by Pierr on 13-10-7.

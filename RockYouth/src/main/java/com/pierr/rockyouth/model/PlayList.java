@@ -1,4 +1,4 @@
-package com.pierr.rockyouth;
+package com.pierr.rockyouth.model;
 
 import java.util.ArrayList;
 import java.util.List;

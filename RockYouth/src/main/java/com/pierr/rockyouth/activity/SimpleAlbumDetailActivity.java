@@ -1,8 +1,7 @@
-package com.pierr.rockyouth;
+package com.pierr.rockyouth.activity;
 
 import android.animation.TimeInterpolator;
 import android.content.ComponentName;
-import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.app.Activity;
@@ -15,6 +14,13 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.pierr.rockyouth.ImageLoader;
+import com.pierr.rockyouth.MusicPlayService;
+import com.pierr.rockyouth.R;
+import com.pierr.rockyouth.activity.MainActivity;
+import com.pierr.rockyouth.model.Album;
+import com.pierr.rockyouth.model.PlayList;
 
 import java.util.List;
 

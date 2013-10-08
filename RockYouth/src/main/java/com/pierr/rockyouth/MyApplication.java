@@ -3,10 +3,9 @@ package com.pierr.rockyouth;
 
 import android.app.Application;
 import android.content.Context;
-import android.os.Build;
-import android.os.StrictMode;
 import android.util.Log;
 
+import com.pierr.rockyouth.activity.MainActivity;
 
 
 public class MyApplication extends Application {

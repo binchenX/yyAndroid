@@ -1,4 +1,4 @@
-package com.pierr.rockyouth;
+package com.pierr.rockyouth.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,6 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.pierr.rockyouth.model.Album;
+import com.pierr.rockyouth.ImageLoader;
+import com.pierr.rockyouth.R;
 
 /**
  * Created by Pierr on 13-9-21.

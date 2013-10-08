@@ -1,4 +1,4 @@
-package com.pierr.rockyouth;
+package com.pierr.rockyouth.fragment;
 
 /**
  * Created by Pierr on 13-9-14.
@@ -6,25 +6,27 @@ package com.pierr.rockyouth;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
-import java.util.ArrayList;
+import com.pierr.rockyouth.model.Album;
+import com.pierr.rockyouth.model.AlbumDataBase;
+import com.pierr.rockyouth.ImageLoader;
+import com.pierr.rockyouth.activity.MainActivity;
+import com.pierr.rockyouth.R;
+import com.pierr.rockyouth.activity.SimpleAlbumDetailActivity;
+
 import java.util.List;
-import java.util.Map;
 
 /**
  * A dummy fragment representing a section of the app, but that simply
