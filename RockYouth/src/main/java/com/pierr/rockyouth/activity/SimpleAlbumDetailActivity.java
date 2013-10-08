@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateInterpolator;
@@ -29,6 +30,9 @@ public class SimpleAlbumDetailActivity extends Activity {
     private Album mAlbum = null;
     private View mCoverView;
 
+
+    private static final  String TAG = "SimpleDetailActivity";
+
     //for animation
     int mLeftDelta;
     int mTopDelta;
@@ -39,30 +43,16 @@ public class SimpleAlbumDetailActivity extends Activity {
     private static final TimeInterpolator sDecelerator = new DecelerateInterpolator();
     private static final TimeInterpolator sAccelerator = new AccelerateInterpolator();
 
-    private MusicPlayService mPlayerService;
-    ServiceConnection mCon = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-
-            mPlayerService = ((MusicPlayService.LocalBinder)iBinder).getService();
-
-            // FIXME
-            //start play the music
-            //mPlayerService.playNext();
-
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName componentName) {
-
-        }
-    };
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.simple_album_detail);
+
+        getActionBar().setHomeButtonEnabled(true);
+
 
         Bundle bundle = getIntent().getExtras();
         mAlbum = bundle.getParcelable("albumDetail");
@@ -72,7 +62,7 @@ public class SimpleAlbumDetailActivity extends Activity {
         final int thumbnailWidth = bundle.getInt(".width");
         final int thumbnailHeight = bundle.getInt(".height");
 
-        Log.d(MainActivity.TAG, "onResume");
+
 
         //get the container for animation
         mCoverView = findViewById(R.id.album_cover_big);
@@ -194,7 +184,7 @@ public class SimpleAlbumDetailActivity extends Activity {
 
     @Override
     protected void onResume() {
-
+        Log.d(TAG, "onResume");
         super.onResume();
 
     }
@@ -202,9 +192,16 @@ public class SimpleAlbumDetailActivity extends Activity {
 
     @Override
     protected void onPause() {
+        Log.d(TAG, "onPause");
         super.onPause();
 
-        unbindService(mCon);
+    }
+
+
+    @Override
+    protected void onStop() {
+        Log.d(TAG, "onStop");
+        super.onStop();
     }
 
     @Override
@@ -213,5 +210,23 @@ public class SimpleAlbumDetailActivity extends Activity {
         getMenuInflater().inflate(R.menu.simple_album_detail, menu);
         return true;
     }
-    
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case android.R.id.home:
+                back();
+                break;
+            default:
+                break;
+        }
+        return true;
+
+    }
+
+    private void back() {
+        finish();
+    }
 }

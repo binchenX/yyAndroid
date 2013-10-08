@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,21 +26,23 @@ public class PlayerController extends Fragment {
 
     private Context mContext ;
 
+    private static  final  String TAG="RockYouth:PlayerCtrl";
+
     private MusicPlayService mPlayerService;
+    private boolean mServiceBound = false;
     ServiceConnection mCon = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-
+            Log.d(TAG, "AudioPlayer serviced connected");
             mPlayerService = ((MusicPlayService.LocalBinder)iBinder).getService();
-
-            // FIXME
-            //start play the music
-            //mPlayerService.playNext();
+            mServiceBound = true;
 
         }
 
         @Override
         public void onServiceDisconnected(ComponentName componentName) {
+            Log.d(TAG, "AudioPlayer serviced disconnected");
+            mServiceBound = false;
 
         }
     };
@@ -85,5 +88,15 @@ public class PlayerController extends Fragment {
 
 
         return rootView;
+    }
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (mServiceBound) {
+            Log.d(TAG, "unbind audio service");
+            getActivity().unbindService(mCon);
+        }
     }
 }

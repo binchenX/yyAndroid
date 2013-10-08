@@ -33,7 +33,8 @@
         </activity>
         <activity
             android:name=".activity.SimpleAlbumDetailActivity"
-            android:label="@string/title_activity_simple_album_detail" >
+            android:label="@string/title_activity_album_detail"
+            android:logo="@drawable/ic_navigation_back">
         </activity>
 
         <service android:name=".MusicPlayService" />

@@ -10,6 +10,8 @@ import java.util.List;
  */
 public class PlayList {
 
+
+    private static  final String TAG = "RockYouth:PL";
     private static PlayList mInstance;
 
     private int mCurrentIndex;

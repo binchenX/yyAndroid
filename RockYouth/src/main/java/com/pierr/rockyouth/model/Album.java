@@ -151,10 +151,8 @@ public class Album implements Parcelable {
 
         public Song(String title, String uri, String lyrics){
             this.title = title;
-            // FIXME:
-            String fixUri = "https://s3-us-west-2.amazonaws.com/pierrchen/music/lizhi/卡夫卡.mp3";
             try {
-                this.uri = URLEncoder.encode(fixUri,"UTF-8");
+                this.uri = URLEncoder.encode(uri,"UTF-8");
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }

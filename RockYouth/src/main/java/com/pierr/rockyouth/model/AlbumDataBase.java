@@ -93,10 +93,17 @@ public class AlbumDataBase {
 
         // FIXME: need real song data
         private void addSongs(Album album) {
-            Album.Song song = new Album.Song("孤独的人是可耻的", "dddd" ,"lyrcis");
-            Album.Song song2 = new Album.Song("蚂蚁", "dddd" ,"lyrcis");
-            Album.Song song3 = new Album.Song("光明大道", "dddd" ,"lyrcis");
-            Album.Song song4 = new Album.Song("赵小姐", "dddd" ,"lyrcis");
+
+            String uri = "https://s3-us-west-2.amazonaws.com/pierrchen/music/lizhi/卡夫卡.mp3";
+            Album.Song song = new Album.Song("孤独的人是可耻的", uri ,"lyrcis");
+
+            String uri2 = "https://s3-us-west-2.amazonaws.com/pierrchen/music/lizhi/欢愉..mp3";
+            Album.Song song2 = new Album.Song("蚂蚁", uri2 ,"lyrcis");
+
+            Album.Song song3 = new Album.Song("光明大道", uri ,"lyrcis");
+
+            Album.Song song4 = new Album.Song("赵小姐", uri2 ,"lyrcis");
+
             List<Album.Song> songs = new ArrayList<Album.Song>();
             songs.add(song);
             songs.add(song2);
