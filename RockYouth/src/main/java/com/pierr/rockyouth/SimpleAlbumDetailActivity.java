@@ -42,7 +42,7 @@ public class SimpleAlbumDetailActivity extends Activity {
 
             // FIXME
             //start play the music
-            mPlayerService.playNext();
+            //mPlayerService.playNext();
 
         }
 
@@ -122,12 +122,6 @@ public class SimpleAlbumDetailActivity extends Activity {
 
         //init the playList
         PlayList.getInstance().addSongs(mAlbum.songs);
-
-        //let's bind the service
-        Intent playerService = new Intent(this, MusicPlayService.class);
-        bindService(playerService,mCon,BIND_AUTO_CREATE);
-
-
 
     }
 

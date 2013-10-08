@@ -13,10 +13,20 @@
 
     <include
         layout="@layout/song_list"
+        android:id="@+id/song_list"
         android:layout_below="@id/album_cover_big"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/card_vertical_padding">
     </include>
+
+   <fragment android:name="com.pierr.rockyouth.PlayerController"
+       android:id="@+id/play_contoller"
+       android:layout_width="wrap_content"
+       android:layout_height="30dp"
+       android:layout_below="@id/song_list"
+       tools:layout="@layout/player_controller">
+
+   </fragment>
 
 </RelativeLayout>

@@ -38,9 +38,7 @@ public class MusicPlayService extends Service {
     private  volatile  PlayerHandler mPlayerHandler ;
     private Looper mServiceLoop;
 
-    private static final int  PLAY = 0 ;
-    private static final int  PAUSE = 1 ;
-    private static final int  RESUME = 2 ;
+    private static final int  PAUSE_OR_RESUME = 0 ;
     private static final int  NEXT = 3 ;
     private static final int  PREVIOUS = 4 ;
 
@@ -56,14 +54,8 @@ public class MusicPlayService extends Service {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
-                case PLAY:
-                    play(mPlayList.getCurrentSong());
-                    break;
-                case PAUSE:
-                    pause();
-                    break;
-                case RESUME:
-                    resume();
+                case PAUSE_OR_RESUME:
+                    onPauseOrResume();
                     break;
                 case NEXT:
                     play(mPlayList.getNextSong());
@@ -78,6 +70,17 @@ public class MusicPlayService extends Service {
         }
 
 
+        private void onPauseOrResume(){
+            if (mAudioPlayer.isPlaying()) {
+                mAudioPlayer.pause();
+            } else {
+                int currPos = mAudioPlayer.getCurrentPosition();
+                mAudioPlayer.seekTo(currPos);
+            }
+
+        }
+
+        // jump to a new song from start
         private void play(Album.Song song) {
             try {
                 mAudioPlayer.setDataSource(mContext, Uri.parse(song.uri));
@@ -87,14 +90,6 @@ public class MusicPlayService extends Service {
                 e.printStackTrace();
                 Toast.makeText(mContext,"Wrong song URI",Toast.LENGTH_LONG).show();
             }
-
-        }
-
-        private  void pause(){
-            mAudioPlayer.pause();
-        }
-
-        private void resume(){
 
         }
 
@@ -128,8 +123,7 @@ public class MusicPlayService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        Message msg =  mPlayerHandler.obtainMessage(PLAY);
-        mPlayerHandler.sendMessage(msg);
+        // do nothing. just make the service sticky
         return  START_STICKY;
     }
 
@@ -142,14 +136,8 @@ public class MusicPlayService extends Service {
 
     //song player interface
 
-    public void pause(){
-        Message msg =  mPlayerHandler.obtainMessage(PAUSE);
-        mPlayerHandler.sendMessage(msg);
-    }
-
-
-    public void resume(){
-        Message msg =  mPlayerHandler.obtainMessage(RESUME);
+    public void pauseOrResume(){
+        Message msg =  mPlayerHandler.obtainMessage(PAUSE_OR_RESUME);
         mPlayerHandler.sendMessage(msg);
     }
 
@@ -157,6 +145,11 @@ public class MusicPlayService extends Service {
         Message msg =  mPlayerHandler.obtainMessage(NEXT);
         mPlayerHandler.sendMessage(msg);
     }
+    public void playPrevious(){
+        Message msg =  mPlayerHandler.obtainMessage(PREVIOUS);
+        mPlayerHandler.sendMessage(msg);
+    }
+
 
 
 }
