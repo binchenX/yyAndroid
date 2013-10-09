@@ -144,9 +144,9 @@ public class Album implements Parcelable {
     }
 
     public static class Song implements Parcelable{
-        public String title;
-        public String uri;
-        public String lyrics;
+        public  String title;
+        public  String uri;
+        public  String lyrics;
 
 
         public Song(String title, String uri, String lyrics){

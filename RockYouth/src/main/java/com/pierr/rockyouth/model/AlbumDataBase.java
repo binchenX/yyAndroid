@@ -16,7 +16,11 @@ import java.util.List;
 /**
  * Created by Pierr on 13-9-14.
  *
- * This is the Model use to query the data from the server or local cache
+ * This is the Model use to query the data from the server or local cache.
+ *
+ *
+ * TODO: rest API
+ * https://developer.stackmob.com/rest-api/api-docs
  *
  */
 public class AlbumDataBase {
@@ -24,15 +28,14 @@ public class AlbumDataBase {
     public static final int SORT_BY_TIME = 1;
     public static final int SORT_BY_RATING = 2;
 
-    //http://www.rock-n-folk.com/api?tag=album&since=2012
-    //https://raw.github.com/pierrchen/datahouse/master/albums.json
-    private static  String dataQueryQui = "https://raw.github.com/pierrchen/datahouse/master/albums.json";
-
     private static List<Album> albumsData = new ArrayList<Album>();
 
     /**
      * called on the UI thread , the listener should be running on UI thread as well.
-     * This could be garentteed by AsyncTask Implementation
+     * This could be garentteed by AsyncTask Implementation.
+     *
+     *
+     * TODO: improve the query interface
      * @param listener
      */
 
@@ -40,6 +43,7 @@ public class AlbumDataBase {
 
         Log.d(MainActivity.TAG,"start query data");
 
+        String dataQueryQui = "https://raw.github.com/pierrchen/datahouse/master/albums.json";
         new FetchDataFromServer(dataQueryQui,listener).execute();
 
     }
@@ -53,9 +57,9 @@ public class AlbumDataBase {
 
     private  static class FetchDataFromServer extends AsyncTask<Void, Void, Void> {
 
-        private String url;
-        private DataAvailableListener listener;
-        private List<Album> result = new ArrayList<Album>();
+        private final String url;
+        private final DataAvailableListener listener;
+        private final List<Album> result = new ArrayList<Album>();
         private FetchDataFromServer(String url,DataAvailableListener listener) {
             this.listener = listener;
             this.url = url;
@@ -119,8 +123,8 @@ public class AlbumDataBase {
 
             // TODO: fix me. Need more design for data fetch
             // cache it
-            for (int i = 0; i < result.size();i++) {
-                albumsData.add(result.get(i));
+            for (Album album: result) {
+                albumsData.add(album);
             }
 
             // notify listener

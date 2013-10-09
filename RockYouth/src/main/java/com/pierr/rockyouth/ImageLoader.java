@@ -49,7 +49,7 @@ public class ImageLoader {
 
 
         //int radius = (int) context.getResources().getDimension(R.dimen.album_row_radius) - 2;
-        int radius = 2;
+        final int radius = 2;
         options = new DisplayImageOptions.Builder()
                 .cacheInMemory(true)
                 .cacheOnDisc(true)

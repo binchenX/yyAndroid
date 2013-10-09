@@ -18,7 +18,7 @@ public class MyApplication extends Application {
         initImageLoader(getApplicationContext());
     }
 
-    public static void initImageLoader(Context context) {
+    private static void initImageLoader(Context context) {
 
         Log.d(MainActivity.TAG, "initialize image loader");
 

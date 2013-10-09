@@ -28,10 +28,12 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
 
         // Set up the action bar to show a dropdown list.
         final ActionBar actionBar = getActionBar();
+        assert actionBar != null;
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 
         // Set up the dropdown list navigation in the action bar.
+        //noinspection ConstantConditions
         actionBar.setListNavigationCallbacks(
                 // Specify a SpinnerAdapter to populate the dropdown list.
                 new ArrayAdapter<String>(
@@ -50,6 +52,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         // Restore the previously serialized current dropdown position.
         if (savedInstanceState.containsKey(STATE_SELECTED_NAVIGATION_ITEM)) {
+            //noinspection ConstantConditions
             getActionBar().setSelectedNavigationItem(
                     savedInstanceState.getInt(STATE_SELECTED_NAVIGATION_ITEM));
         }
@@ -58,6 +61,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.OnNaviga
     @Override
     public void onSaveInstanceState(Bundle outState) {
         // Serialize the current dropdown position.
+        //noinspection ConstantConditions
         outState.putInt(STATE_SELECTED_NAVIGATION_ITEM,
                 getActionBar().getSelectedNavigationIndex());
     }

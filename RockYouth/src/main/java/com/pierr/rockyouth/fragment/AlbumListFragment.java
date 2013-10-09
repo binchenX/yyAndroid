@@ -49,7 +49,7 @@ public  class AlbumListFragment extends ListFragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_album_list, container, false);
 
-        int sortType = getArguments().getInt(ARG_SECTION_NUMBER);
+        //int sortType = getArguments().getInt(ARG_SECTION_NUMBER);
 
         //start loading the data and setup the adapter
         AlbumDataBase.queryDataAsync(new AlbumDataBase.DataAvailableListener() {
@@ -71,18 +71,11 @@ public  class AlbumListFragment extends ListFragment {
 
     private void onQueryDataAvailable(List<Album> albums){
 
-        AlbumAdapter adapter = new AlbumAdapter(getActivity(),albums);
-        mCurrentAlbumAdapter = adapter;
+        mCurrentAlbumAdapter = new AlbumAdapter(getActivity(),albums);
         setListAdapter(mCurrentAlbumAdapter);
 
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-
-    }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -130,7 +123,7 @@ public  class AlbumListFragment extends ListFragment {
     }
 
     class AlbumAdapter extends BaseAdapter{
-        private Context context;
+        private final Context context;
         private List<Album> albums = null;
 
         public AlbumAdapter(Context context, List<Album> albums) {
@@ -165,13 +158,14 @@ public  class AlbumListFragment extends ListFragment {
             Album album = albums.get(position);
             View row = view;
 
-            ViewHolder viewHolder = null;
+            ViewHolder viewHolder;
             if (row == null) {
                 // trick: should the last parameters to inflate MUST be false
                  row = LayoutInflater.from(context).inflate(R.layout.album_item, viewGroup, false);
 
                 viewHolder = new ViewHolder();
 
+                assert row != null;
                 viewHolder.albumImage = (ImageView) row.findViewById(R.id.album_image);
                 viewHolder.albumTitle = (TextView) row.findViewById(R.id.album_title);
                 viewHolder.albumAuthor = (TextView) row.findViewById(R.id.album_author);

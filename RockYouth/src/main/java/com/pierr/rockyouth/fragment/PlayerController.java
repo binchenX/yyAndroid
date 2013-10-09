@@ -13,24 +13,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.pierr.rockyouth.MusicPlayService;
 import com.pierr.rockyouth.R;
 
 /**
- * Created by Pierr on 13-10-7.
+ * PlayerControllerFragment
+ *
+ * Work with PlayList to control the play/pause, next,previous.
  */
 public class PlayerController extends Fragment {
 
+    @SuppressWarnings("FieldCanBeLocal")
     private Context mContext ;
 
     private static  final  String TAG="RockYouth:PlayerCtrl";
 
     private MusicPlayService mPlayerService;
     private boolean mServiceBound = false;
-    ServiceConnection mCon = new ServiceConnection() {
+    private final ServiceConnection mCon = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
             Log.d(TAG, "AudioPlayer serviced connected");
@@ -53,6 +54,7 @@ public class PlayerController extends Fragment {
         mContext = getActivity();
 
         View rootView = inflater.inflate(R.layout.player_controller, container, false);
+        assert rootView != null;
         ImageButton previous = (ImageButton) rootView.findViewById(R.id.previous);
         ImageButton playOrPause = (ImageButton) rootView.findViewById(R.id.play);
 
@@ -96,7 +98,10 @@ public class PlayerController extends Fragment {
         super.onPause();
         if (mServiceBound) {
             Log.d(TAG, "unbind audio service");
-            getActivity().unbindService(mCon);
+            Activity activity = getActivity();
+            assert activity != null;
+            activity.unbindService(mCon);
+
         }
     }
 }

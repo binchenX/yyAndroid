@@ -20,9 +20,11 @@ public class DiscussItFragment extends Fragment {
         //return super.onCreateView(inflater, container, savedInstanceState);
 
         View rootView = inflater.inflate(R.layout.fragment_album_detail_discuss, container, false);
+        assert rootView != null;
         TextView dummyTextView = (TextView) rootView.findViewById(R.id.section_label);
         Album album = getArguments().getParcelable("album");
 
+        assert album != null;
         dummyTextView.setText(album.title);
         return rootView;
     }

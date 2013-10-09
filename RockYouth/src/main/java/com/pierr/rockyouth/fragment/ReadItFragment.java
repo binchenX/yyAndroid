@@ -22,12 +22,13 @@ public class ReadItFragment extends Fragment {
         //return super.onCreateView(inflater, container, savedInstanceState);
 
         View rootView = inflater.inflate(R.layout.fragment_album_detail_read, container, false);
+        assert rootView != null;
         TextView songListView = (TextView) rootView.findViewById(R.id.song_list);
+
         Album album = getArguments().getParcelable("album");
-
-        StringBuilder sb = new StringBuilder();
+        assert album != null;
         List<Album.Song> songs = album.songs;
-
+        StringBuilder sb = new StringBuilder();
 
         for(Album.Song s : songs){
             sb.append(s.title).append("\n");

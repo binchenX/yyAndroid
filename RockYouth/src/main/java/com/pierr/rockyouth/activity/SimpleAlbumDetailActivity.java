@@ -1,11 +1,9 @@
 package com.pierr.rockyouth.activity;
 
 import android.animation.TimeInterpolator;
-import android.content.ComponentName;
-import android.content.ServiceConnection;
+import android.app.ActionBar;
 import android.os.Bundle;
 import android.app.Activity;
-import android.os.IBinder;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,9 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pierr.rockyouth.ImageLoader;
-import com.pierr.rockyouth.MusicPlayService;
 import com.pierr.rockyouth.R;
-import com.pierr.rockyouth.activity.MainActivity;
 import com.pierr.rockyouth.model.Album;
 import com.pierr.rockyouth.model.PlayList;
 
@@ -27,6 +23,7 @@ import java.util.List;
 
 public class SimpleAlbumDetailActivity extends Activity {
 
+    @SuppressWarnings("FieldCanBeLocal")
     private Album mAlbum = null;
     private View mCoverView;
 
@@ -51,10 +48,15 @@ public class SimpleAlbumDetailActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.simple_album_detail);
 
-        getActionBar().setHomeButtonEnabled(true);
+
+        ActionBar actionBar = getActionBar();
+        if (actionBar != null) {
+            actionBar.setHomeButtonEnabled(true);
+        }
 
 
         Bundle bundle = getIntent().getExtras();
+        assert bundle != null;
         mAlbum = bundle.getParcelable("albumDetail");
 
         final int thumbnailTop = bundle.getInt(".top");
@@ -65,7 +67,7 @@ public class SimpleAlbumDetailActivity extends Activity {
 
 
         //get the container for animation
-        mCoverView = findViewById(R.id.album_cover_big);
+        mCoverView = findViewById(R.id.id_cover_with_title);
 
         //show cover with title
         ImageView imageView = (ImageView) findViewById(R.id.frag_listen_album_cover_big);
@@ -88,6 +90,7 @@ public class SimpleAlbumDetailActivity extends Activity {
         // we're recreated automatically by the window manager (e.g., device rotation)
         if (savedInstanceState == null) {
             ViewTreeObserver observer = mCoverView.getViewTreeObserver();
+            assert observer != null;
             observer.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
 
                 @Override
@@ -128,7 +131,7 @@ public class SimpleAlbumDetailActivity extends Activity {
      * activity is fading in. When the pictue is in place, the text description
      * drops down.
      */
-    public void runEnterAnimation() {
+    void runEnterAnimation() {
         final long duration = (long) 1000;
 
         // Set starting values for properties we're going to animate. These
@@ -146,6 +149,7 @@ public class SimpleAlbumDetailActivity extends Activity {
         mSongListView.setAlpha(0);
 
         // Animate scale and translation to go from thumbnail to full size
+        //noinspection ConstantConditions
         mCoverView.animate().setDuration(duration).
                 scaleX(1).scaleY(1).
                 translationX(0).translationY(0).
@@ -156,6 +160,7 @@ public class SimpleAlbumDetailActivity extends Activity {
                         // is done. Slide and fade the text in from underneath
                         // the picture.
                         mSongListView.setTranslationY(-mSongListView.getHeight());
+                        //noinspection ConstantConditions
                         mSongListView.animate().setDuration(duration/2).
                                 translationY(0).alpha(1).
                                 setInterpolator(sDecelerator);

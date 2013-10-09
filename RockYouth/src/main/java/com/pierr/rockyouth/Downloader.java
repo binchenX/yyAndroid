@@ -27,20 +27,22 @@ public class Downloader {
     public static String download(String urlString)  {
         StringBuilder sb = new StringBuilder();
         BufferedReader br = null;
-        URL url = null;
+        URL url;
         try {
             url = new URL(urlString);
             URLConnection conn = url.openConnection();
 
             br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
-            String line = "";
+            String line;
             while ((line = br.readLine()) != null) {
                 sb.append(line);
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
+            Log.e(MainActivity.TAG, "malformed url " + urlString);
         } catch (IOException e) {
+            Log.e(MainActivity.TAG, "error when download json file " + urlString);
         } finally {
             if (br != null) {
                 try {

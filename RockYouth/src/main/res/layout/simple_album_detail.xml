@@ -14,7 +14,7 @@
     <include
         layout="@layout/song_list"
         android:id="@+id/song_list"
-        android:layout_below="@id/album_cover_big"
+        android:layout_below="@id/id_cover_with_title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/card_vertical_padding">

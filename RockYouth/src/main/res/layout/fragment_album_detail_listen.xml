@@ -15,7 +15,7 @@
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/album_cover_big"
+        android:layout_below="@id/id_cover_with_title"
         android:layout_marginTop="30dp"
         android:gravity="bottom|center"
         >
@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="这是一个恋爱的季节"
+            android:text="@string/current_song"
             android:id="@+id/frag_listen_current_song"
             android:layout_gravity="top|center_horizontal"
             android:layout_marginBottom="40dp"/>

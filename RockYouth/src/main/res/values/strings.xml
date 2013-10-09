@@ -6,11 +6,11 @@
     <string name="title_section1">时间</string>
     <string name="title_section2">打分</string>
     <string name="title_activity_album_detail">专辑详情</string>
-    <string name="title_section3">Section 3</string>
     <string name="detail_tab1">曲目</string>
     <string name="detail_tab2">听歌</string>
     <string name="detail_tab3">评论</string>
     <string name="title_activity_simple_album_detail">AlbumDetail</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="album_title">专辑名称</string>
+    <string name="current_song">current_song</string>
 
 </resources>

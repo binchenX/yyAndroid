@@ -51,13 +51,15 @@ public class PlayList {
 
         int next = mCurrentIndex + 1;
         next = next >= mSize ? 0 : next;
-        return mList.get(next);
+        mCurrentIndex = next;
+        return mList.get(mCurrentIndex);
     }
 
     public Album.Song getPrevSong(){
         int prev = mCurrentIndex - 1;
         prev = prev < 0 ? mSize - 1 : prev;
-        return mList.get(prev);
+        mCurrentIndex = prev;
+        return mList.get(mCurrentIndex);
     }
 
 }

@@ -40,12 +40,11 @@ public class MusicPlayService extends Service implements
         MediaPlayer.OnBufferingUpdateListener{
 
     //init in playSongList
-    private PlayList mPlayList = PlayList.getInstance();
+    private final PlayList mPlayList = PlayList.getInstance();
     private MediaPlayer mAudioPlayer;
     private Context mContext ;
-    private LocalBinder mBinder = new LocalBinder();
+    private final LocalBinder mBinder = new LocalBinder();
     private  volatile  PlayerHandler mPlayerHandler ;
-    private Looper mServiceLoop;
 
     private  static final  String TAG = "RockYouth:MPS";
     // audioPlayer is BEYOND prepared (could be in started, paused).
@@ -184,7 +183,7 @@ public class MusicPlayService extends Service implements
         HandlerThread handleThread = new HandlerThread("PlayerService");
         handleThread.start();
 
-        mServiceLoop = handleThread.getLooper();
+        Looper mServiceLoop = handleThread.getLooper();
         mPlayerHandler = new PlayerHandler(mServiceLoop);
 
     }

@@ -41,7 +41,7 @@ public class AlbumDetailActivity extends FragmentActivity implements ActionBar.T
      * intensive, it may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
-    SectionsPagerAdapter mSectionsPagerAdapter;
+    private SectionsPagerAdapter mSectionsPagerAdapter;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -69,6 +69,7 @@ public class AlbumDetailActivity extends FragmentActivity implements ActionBar.T
 
         // Set up the action bar.
         final ActionBar actionBar = getActionBar();
+        assert actionBar != null;
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         actionBar.setHomeButtonEnabled(true);
 
@@ -176,6 +177,7 @@ public class AlbumDetailActivity extends FragmentActivity implements ActionBar.T
             // pass currentAlbum data to fragment
             Bundle args = new Bundle();
             args.putParcelable("album",mCurrentAlbum);
+            assert fragment != null;
             fragment.setArguments(args);
             return fragment;
         }

@@ -22,12 +22,14 @@ public class ListenItFragment extends Fragment {
         //return super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.fragment_album_detail_listen, container, false);
 
-        Album album = getArguments().getParcelable("album");
 
+        assert rootView != null;
         ImageView bigCover = (ImageView) rootView.findViewById(R.id.frag_listen_album_cover_big);
         TextView  albumTitle = (TextView) rootView.findViewById(R.id.frag_listen_album_title);
         //albumTitle.setTextAlignment();
 
+        Album album = getArguments().getParcelable("album");
+        assert album != null;
         ImageLoader.getInstance().displayImage(album.bigCoverUri,bigCover);
         albumTitle.setText(album.title);
 
