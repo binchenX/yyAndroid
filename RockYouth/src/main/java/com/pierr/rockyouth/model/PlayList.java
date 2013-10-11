@@ -20,6 +20,9 @@ public class PlayList {
     private List<Album.Song> mList;
     private int mSize;
 
+    // make use of the fact that PlayList is singlton. Used by PlayControl
+    private boolean mIsPlaying = false;
+
     public static PlayList getInstance(){
 
         if (mInstance == null) {
@@ -34,10 +37,18 @@ public class PlayList {
         mList = new ArrayList<Album.Song>();
         mCurrentIndex = 0;
         mSize = 0;
+        loadFromDisk();
+    }
 
 
+    private void loadFromDisk() {
         // FIXME: hack to set up some songs:
         mokeUpsongs();
+
+    }
+
+    public  void saveToDisk(){
+
     }
 
     private void mokeUpsongs() {
@@ -67,6 +78,13 @@ public class PlayList {
     }
 
 
+    public void replace(List<Album.Song> songs) {
+        mList.clear();
+        addSongs(songs);
+    }
+
+
+
     public Album.Song getCurrentSong(){
         assert mCurrentIndex < mList.size() - 1;
 
@@ -93,4 +111,15 @@ public class PlayList {
         return mList.get(mCurrentIndex);
     }
 
+
+    public void setIsPlaying(boolean isPlaying) {
+        Log.d(TAG,"setIsPlaying " + isPlaying);
+
+        mIsPlaying = isPlaying;
+    }
+
+    public Boolean isPlaying() {
+        Log.d(TAG, "getIsPlaying " + mIsPlaying);
+        return mIsPlaying;
+    }
 }

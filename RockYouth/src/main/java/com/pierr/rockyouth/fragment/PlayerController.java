@@ -33,6 +33,9 @@ import com.pierr.rockyouth.model.PlayList;
  *
  * show current playing songs, as well as play control
  *
+ * It is stateless. The playing status is stored in PlayList
+ * which is a singleton.
+ *
  * Work with PlayList to control the play/pause, next,previous.
  */
 public class PlayerController extends Fragment {
@@ -62,7 +65,7 @@ public class PlayerController extends Fragment {
     };
 
     private View mRootView;
-    private boolean mCurrentPlaying = false;
+    private boolean mCurrentPlaying = PlayList.getInstance().isPlaying();
     private ImageButton mPlayOrPauseBtn;
     private BitmapDrawable mPauseIcon;
     private BitmapDrawable mPlayIcon;
@@ -101,6 +104,10 @@ public class PlayerController extends Fragment {
         // locate view objects
         ImageButton previous = (ImageButton) mRootView.findViewById(R.id.play_control_previous);
         mPlayOrPauseBtn = (ImageButton) mRootView.findViewById(R.id.play_control_play);
+        //set current image
+        Boolean isPlaying = PlayList.getInstance().isPlaying();
+        mPlayOrPauseBtn.setImageDrawable(isPlaying ? mPauseIcon : mPlayIcon);
+
         ImageButton next = (ImageButton) mRootView.findViewById(R.id.play_control_next);
 
 
@@ -119,6 +126,7 @@ public class PlayerController extends Fragment {
                 mPlayerService.pauseOrResume();
 
                 mCurrentPlaying = !mCurrentPlaying;
+                PlayList.getInstance().setIsPlaying(mCurrentPlaying);
                 Log.d(TAG, "current status: " + (mCurrentPlaying?"playing":"pause"));
                 updatePlayOrPauseButton();
 
