@@ -65,7 +65,6 @@ public class PlayerController extends Fragment {
     };
 
     private View mRootView;
-    private boolean mCurrentPlaying = PlayList.getInstance().isPlaying();
     private ImageButton mPlayOrPauseBtn;
     private BitmapDrawable mPauseIcon;
     private BitmapDrawable mPlayIcon;
@@ -125,9 +124,10 @@ public class PlayerController extends Fragment {
             public void onClick(View view) {
                 mPlayerService.pauseOrResume();
 
-                mCurrentPlaying = !mCurrentPlaying;
-                PlayList.getInstance().setIsPlaying(mCurrentPlaying);
-                Log.d(TAG, "current status: " + (mCurrentPlaying?"playing":"pause"));
+                boolean currentPlayingStatus = PlayList.getInstance().isPlaying();
+                currentPlayingStatus = !currentPlayingStatus;
+                PlayList.getInstance().setIsPlaying(currentPlayingStatus);
+                Log.d(TAG, "current status: " + (currentPlayingStatus?"playing":"pause"));
                 updatePlayOrPauseButton();
 
             }
@@ -150,7 +150,8 @@ public class PlayerController extends Fragment {
 
     private void updatePlayOrPauseButton() {
 
-        if (mCurrentPlaying) {
+        boolean isPlaying = PlayList.getInstance().isPlaying();
+        if (isPlaying) {
             //set it to pause
             mPlayOrPauseBtn.setImageDrawable(mPauseIcon);
         } else {

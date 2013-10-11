@@ -6,9 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Pierr on 13-10-7.
  *
- * Singleton play list. Set by activty and read by PlayService
+ *
+ * Singleton maintaiting play list & current playing status.
+ *
+ *
+ *
  */
 public class PlayList {
 
@@ -16,11 +19,16 @@ public class PlayList {
     private static  final String TAG = "RockYouth:PL";
     private static PlayList mInstance;
 
+    // Data1 : song list
+    // write by Activity (main thread)
+    // read by PlayService (play thread)
+    // synchronize needed
     private int mCurrentIndex;
     private List<Album.Song> mList;
     private int mSize;
 
-    // make use of the fact that PlayList is singlton. Used by PlayControl
+    // Data 2 : isPlaying
+    // read/write by PlayControl. No sychronize needed.
     private boolean mIsPlaying = false;
 
     public static PlayList getInstance(){
@@ -47,7 +55,7 @@ public class PlayList {
 
     }
 
-    public  void saveToDisk(){
+    private  void saveToDisk(){
 
     }
 
@@ -71,50 +79,58 @@ public class PlayList {
     }
 
     public void addSongs(List<Album.Song> songs){
-        // TODO: find duplication
-        Log.d(TAG,"add " + songs.size() + " to song list");
-        mList.addAll(songs);
-        mSize = mList.size();
+        synchronized (this) {
+            // TODO: find duplication
+            Log.d(TAG,"add " + songs.size() + " to song list");
+            mList.addAll(songs);
+            mSize = mList.size();
+        }
+        //FIXME :do it in background
+        saveToDisk();
+
     }
 
 
     public void replace(List<Album.Song> songs) {
-        mList.clear();
-        addSongs(songs);
+        synchronized (this) {
+            mList.clear();
+            addSongs(songs);
+        }
     }
 
 
 
     public Album.Song getCurrentSong(){
-        assert mCurrentIndex < mList.size() - 1;
-
-        if(mCurrentIndex > mList.size() - 1) {
-            return null;
+        synchronized (this) {
+            if(mCurrentIndex > mList.size() - 1) {
+                return null;
+            }
+            return mList.get(mCurrentIndex);
         }
-
-        return mList.get(mCurrentIndex);
     }
 
 
     public Album.Song getNextSong(){
-
-        int next = mCurrentIndex + 1;
-        next = next >= mSize ? 0 : next;
-        mCurrentIndex = next;
-        return mList.get(mCurrentIndex);
+        synchronized (this) {
+            int next = mCurrentIndex + 1;
+            next = next >= mSize ? 0 : next;
+            mCurrentIndex = next;
+            return mList.get(mCurrentIndex);
+        }
     }
 
     public Album.Song getPrevSong(){
-        int prev = mCurrentIndex - 1;
-        prev = prev < 0 ? mSize - 1 : prev;
-        mCurrentIndex = prev;
-        return mList.get(mCurrentIndex);
+        synchronized (this) {
+            int prev = mCurrentIndex - 1;
+            prev = prev < 0 ? mSize - 1 : prev;
+            mCurrentIndex = prev;
+            return mList.get(mCurrentIndex);
+        }
     }
 
 
     public void setIsPlaying(boolean isPlaying) {
         Log.d(TAG,"setIsPlaying " + isPlaying);
-
         mIsPlaying = isPlaying;
     }
 
