@@ -41,6 +41,7 @@ public class AlbumDetailActivity extends FragmentActivity implements ActionBar.T
      * intensive, it may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
+    @SuppressWarnings("FieldCanBeLocal")
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
     /**

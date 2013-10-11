@@ -6,6 +6,10 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
@@ -13,12 +17,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.pierr.rockyouth.ImageLoader;
 import com.pierr.rockyouth.MusicPlayService;
 import com.pierr.rockyouth.R;
+import com.pierr.rockyouth.model.Album;
+import com.pierr.rockyouth.model.PlayList;
 
 /**
- * PlayerControllerFragment
+ *
+ *
+ * Minimized player control pannel.
+ *
+ * show current playing songs, as well as play control
  *
  * Work with PlayList to control the play/pause, next,previous.
  */
@@ -48,36 +61,67 @@ public class PlayerController extends Fragment {
         }
     };
 
+    private View mRootView;
+    private boolean mCurrentPlaying = false;
+    private ImageButton mPlayOrPauseBtn;
+    private BitmapDrawable mPauseIcon;
+    private BitmapDrawable mPlayIcon;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        startAndBindPlayService();
+
+        mRootView = inflater.inflate(R.layout.player_controller, container, false);
+        assert mRootView != null;
+
+        setupView();
+        return mRootView;
+    }
+
+    private void startAndBindPlayService() {
         mContext = getActivity();
 
-        View rootView = inflater.inflate(R.layout.player_controller, container, false);
-        assert rootView != null;
-        ImageButton previous = (ImageButton) rootView.findViewById(R.id.previous);
-        ImageButton playOrPause = (ImageButton) rootView.findViewById(R.id.play);
-
-        ImageButton next = (ImageButton) rootView.findViewById(R.id.next);
-
-
+        // start it
         Intent playerService = new Intent(mContext, MusicPlayService.class);
         mContext.startService(playerService);
 
         //let's bind the service,so as to get the control interface
         mContext.bindService(playerService, mCon, Activity.BIND_AUTO_CREATE);
 
+    }
+
+    private void setupView() {
+        //load the pause and play drawable so as to swith quickly
+        Bitmap pauseImage = BitmapFactory.decodeResource(getResources(),R.drawable.ic_pause);
+        mPauseIcon = new BitmapDrawable(getResources(),pauseImage);
+        Bitmap playImage = BitmapFactory.decodeResource(getResources(),R.drawable.ic_play);
+        mPlayIcon = new BitmapDrawable(getResources(),playImage);
+
+        // locate view objects
+        ImageButton previous = (ImageButton) mRootView.findViewById(R.id.play_control_previous);
+        mPlayOrPauseBtn = (ImageButton) mRootView.findViewById(R.id.play_control_play);
+        ImageButton next = (ImageButton) mRootView.findViewById(R.id.play_control_next);
+
+
+        //set up button's action
         previous.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mPlayerService.playNext();
+                updateCurrentSongInfo();
             }
         });
 
-        playOrPause.setOnClickListener(new View.OnClickListener() {
+        mPlayOrPauseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mPlayerService.pauseOrResume();
+
+                mCurrentPlaying = !mCurrentPlaying;
+                Log.d(TAG, "current status: " + (mCurrentPlaying?"playing":"pause"));
+                updatePlayOrPauseButton();
+
             }
         });
 
@@ -85,11 +129,44 @@ public class PlayerController extends Fragment {
             @Override
             public void onClick(View view) {
                 mPlayerService.playNext();
+                updateCurrentSongInfo();
             }
         });
 
 
-        return rootView;
+        //set up current song infor
+        updateCurrentSongInfo();
+
+
+    }
+
+    private void updatePlayOrPauseButton() {
+
+        if (mCurrentPlaying) {
+            //set it to pause
+            mPlayOrPauseBtn.setImageDrawable(mPauseIcon);
+        } else {
+            mPlayOrPauseBtn.setImageDrawable(mPlayIcon);
+        }
+
+    }
+
+    private void updateCurrentSongInfo() {
+        ImageView albumIcon = (ImageView) mRootView.findViewById(R.id.play_control_album_image);
+        TextView currentSongTextView = (TextView)mRootView.findViewById(R.id.play_control_current_song);
+        TextView author  = (TextView)mRootView.findViewById(R.id.play_control_current_song_singer);
+
+        // FixMe: fragment may create before you have a chance to add song to song list in onCreate
+        // Need persistent on  playlist
+
+        Album.Song currentSong = PlayList.getInstance().getCurrentSong();
+
+        if (currentSong != null ) {
+            // FIXME: album uri
+            ImageLoader.getInstance().displayImage("http://img1.douban.com/spic/s3383651.jpg",albumIcon);
+            currentSongTextView.setText(currentSong.title);
+            author.setText("张楚/［一颗不肯媚俗的心］");
+        }
     }
 
 

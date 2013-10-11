@@ -66,4 +66,45 @@
         <item name="android:textStyle">bold</item>
         <item name="android:paddingTop">5dp</item>
     </style>
+
+    <!-- style for play control  -->
+
+    <style name="play_control">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/play_control_bg</item>
+        <!-- base font style for play control. override in child element-->
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">12sp</item>
+
+    </style>
+
+
+    <style name="play_control_current_song">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginLeft">2dp</item>
+        <item name="android:paddingTop">5dp</item>
+
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+
+    </style>
+
+    <style name="play_control_current_song_singer">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">2dp</item>
+
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">8sp</item>
+
+    </style>
+
+
+
+
 </resources>

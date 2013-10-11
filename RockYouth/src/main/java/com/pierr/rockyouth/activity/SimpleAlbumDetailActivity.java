@@ -118,7 +118,6 @@ public class SimpleAlbumDetailActivity extends Activity {
 
         // FIXME:
 
-
         //init the playList
         PlayList.getInstance().addSongs(mAlbum.songs);
 

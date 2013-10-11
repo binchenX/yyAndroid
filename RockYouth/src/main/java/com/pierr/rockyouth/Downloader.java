@@ -20,7 +20,7 @@ public class Downloader {
 
     /**
      *
-     * @param urlString
+     * @param urlString url to the json
      * @return string of the Json file
      */
 

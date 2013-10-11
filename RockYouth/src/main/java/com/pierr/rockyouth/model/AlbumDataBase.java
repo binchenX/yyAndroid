@@ -22,6 +22,9 @@ import java.util.List;
  * TODO: rest API
  * https://developer.stackmob.com/rest-api/api-docs
  *
+ * song.album
+ * song.singer
+ *
  */
 public class AlbumDataBase {
 
@@ -36,7 +39,7 @@ public class AlbumDataBase {
      *
      *
      * TODO: improve the query interface
-     * @param listener
+     * @param listener callback when data available
      */
 
     public static void queryDataAsync(DataAvailableListener listener){

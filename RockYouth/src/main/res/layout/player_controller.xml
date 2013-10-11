@@ -2,17 +2,68 @@
 
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/play_control_height"
     android:layout_gravity="center"
     android:layout_below="@id/frag_listen_current_song"
     android:id="@+id/play_controller"
-    android:layout_marginBottom="20dp">
+    android:layout_marginBottom="20dp"
+    style="@style/play_control">
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/current_song_info"
+        android:layout_width="@dimen/play_control_song_info_width"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="true"
+        >
+
+        <ImageView
+            android:layout_width="@dimen/play_control_cover_height"
+            android:layout_height="@dimen/play_control_cover_height"
+            android:id="@+id/play_control_album_image"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="false"
+            android:baselineAlignBottom="false"
+            android:layout_alignTop="@id/play_control_album_image"
+            android:layout_alignParentLeft="true"
+            android:scaleType="centerCrop"
+            android:focusable="false"
+            android:clickable="false" />
+
+        <TextView
+            style="@style/play_control_current_song"
+            android:text="curreng song long name"
+            android:id="@+id/play_control_current_song"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@id/play_control_album_image"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:maxWidth="100dp" />
+
+        <TextView
+            style="@style/play_control_current_song_singer"
+            android:text="singer/album"
+            android:id="@+id/play_control_current_song_singer"
+            android:layout_toRightOf="@+id/play_control_album_image"
+            android:layout_below="@id/play_control_current_song"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/play_control_button"
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@id/current_song_info"
+        android:clickable="true"
+        >
+
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/previous"
+        android:id="@+id/play_control_previous"
         android:src="@drawable/ic_previous"
         android:layout_marginRight="@dimen/play_control_button_padding" />
 
@@ -20,17 +71,18 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/play"
+        android:id="@+id/play_control_play"
         android:src="@drawable/ic_play"
-        android:layout_toRightOf="@id/previous"
+        android:layout_toRightOf="@id/play_control_previous"
         android:layout_marginRight="@dimen/play_control_button_padding" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/next"
+        android:id="@+id/play_control_next"
         android:src="@drawable/ic_next"
-        android:layout_toRightOf="@id/play"
+        android:layout_toRightOf="@id/play_control_play"
         android:layout_marginRight="@dimen/play_control_button_padding" />
+    </RelativeLayout>
 </RelativeLayout>
     

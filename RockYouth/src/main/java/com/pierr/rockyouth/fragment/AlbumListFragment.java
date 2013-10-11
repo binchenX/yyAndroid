@@ -32,6 +32,11 @@ import java.util.List;
  * A dummy fragment representing a section of the app, but that simply
  * displays dummy text.
  */
+
+/**
+ * A dummy fragment representing a section of the app, but that simply
+ * displays dummy text.
+ */
 public  class AlbumListFragment extends ListFragment {
     /**
      * The fragment argument representing the section number for this
@@ -66,7 +71,7 @@ public  class AlbumListFragment extends ListFragment {
     /**
      * our query returned with data! put the data in the adapter and set it to the ListFragment.
      *
-     * @param albums
+     * @param albums album data match query condition
      */
 
     private void onQueryDataAvailable(List<Album> albums){
@@ -166,7 +171,7 @@ public  class AlbumListFragment extends ListFragment {
                 viewHolder = new ViewHolder();
 
                 assert row != null;
-                viewHolder.albumImage = (ImageView) row.findViewById(R.id.album_image);
+                viewHolder.albumImage = (ImageView) row.findViewById(R.id.play_control_album_image);
                 viewHolder.albumTitle = (TextView) row.findViewById(R.id.album_title);
                 viewHolder.albumAuthor = (TextView) row.findViewById(R.id.album_author);
 

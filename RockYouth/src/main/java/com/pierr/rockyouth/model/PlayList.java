@@ -1,5 +1,7 @@
 package com.pierr.rockyouth.model;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,16 +34,45 @@ public class PlayList {
         mList = new ArrayList<Album.Song>();
         mCurrentIndex = 0;
         mSize = 0;
+
+
+        // FIXME: hack to set up some songs:
+        mokeUpsongs();
+    }
+
+    private void mokeUpsongs() {
+        String uri = "https://s3-us-west-2.amazonaws.com/pierrchen/music/lizhi/卡夫卡.mp3";
+        Album.Song song = new Album.Song("孤独的人是可耻的", uri ,"lyrcis");
+
+        String uri2 = "https://s3-us-west-2.amazonaws.com/pierrchen/music/lizhi/欢愉..mp3";
+        Album.Song song2 = new Album.Song("蚂蚁", uri2 ,"lyrcis");
+
+        Album.Song song3 = new Album.Song("光明大道", uri ,"lyrcis");
+
+        Album.Song song4 = new Album.Song("赵小姐", uri2 ,"lyrcis");
+
+        List<Album.Song> songs = new ArrayList<Album.Song>();
+        songs.add(song);
+        songs.add(song2);
+        songs.add(song3);
+        songs.add(song4);
+        addSongs(songs);
     }
 
     public void addSongs(List<Album.Song> songs){
         // TODO: find duplication
+        Log.d(TAG,"add " + songs.size() + " to song list");
         mList.addAll(songs);
         mSize = mList.size();
     }
 
 
     public Album.Song getCurrentSong(){
+        assert mCurrentIndex < mList.size() - 1;
+
+        if(mCurrentIndex > mList.size() - 1) {
+            return null;
+        }
 
         return mList.get(mCurrentIndex);
     }

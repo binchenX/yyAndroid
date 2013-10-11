@@ -7,11 +7,11 @@
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:id="@+id/album_image"
+        android:id="@+id/play_control_album_image"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="false"
         android:baselineAlignBottom="true"
-        android:layout_alignTop="@id/album_image"
+        android:layout_alignTop="@id/play_control_album_image"
         android:layout_alignParentLeft="true"
         android:scaleType="centerCrop"
         android:focusable="false"
@@ -23,14 +23,14 @@
         android:text=""
         android:id="@+id/album_title"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@id/album_image"
+        android:layout_toRightOf="@id/play_control_album_image"
         />
 
     <TextView
         style="@style/album_summary_author"
         android:text=""
         android:id="@+id/album_author"
-        android:layout_toRightOf="@+id/album_image"
+        android:layout_toRightOf="@+id/play_control_album_image"
         android:layout_below="@id/album_title"
         />
 </RelativeLayout>

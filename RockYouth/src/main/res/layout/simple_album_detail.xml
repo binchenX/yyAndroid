@@ -20,13 +20,19 @@
         android:layout_marginTop="@dimen/card_vertical_padding">
     </include>
 
-   <fragment android:name="com.pierr.rockyouth.fragment.PlayerController"
-       android:id="@+id/play_contoller"
-       android:layout_width="wrap_content"
-       android:layout_height="30dp"
-       android:layout_below="@id/song_list"
-       tools:layout="@layout/player_controller">
+    <RelativeLayout
+        android:layout_below="@id/song_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:layout_alignParentBottom="true">
+        <fragment android:name="com.pierr.rockyouth.fragment.PlayerController"
+             android:id="@+id/play_contoller"
+             android:layout_width="match_parent"
+             android:layout_height="@dimen/play_control_height"
+             tools:layout="@layout/player_controller">
+        </fragment>
 
-   </fragment>
+</RelativeLayout>
 
 </RelativeLayout>
